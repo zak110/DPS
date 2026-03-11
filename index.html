@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dubani Public School & College Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e5e7eb; }
+.heading-font { font-family: 'Playfair Display', serif; }
+.card-hover { transition: all 0.4s; }
+.card-hover:hover { transform: translateY(-6px) scale(1.02); }
+</style>
+</head>
+<body class="bg-gray-950 text-gray-200">
+
+<!-- NAVBAR -->
+<nav class="bg-gray-950 border-b border-gray-800 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-500 rounded-xl flex items-center justify-center text-white font-bold text-3xl shadow-lg">D</div>
+      <div>
+        <span class="text-2xl font-bold heading-font tracking-tight">Dubani Public School & College</span>
+        <span class="block text-xs text-gray-500 -mt-1">Nurturing Young Minds • Excellence & Values</span>
+      </div>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#home" class="nav-link text-gray-300 hover:text-emerald-400">Home</a>
+      <a href="#academics" class="nav-link text-gray-300 hover:text-emerald-400">Academics</a>
+      <a href="#portal" class="nav-link text-gray-300 hover:text-emerald-400">Portal</a>
+      <a href="#contact" class="nav-link text-gray-300 hover:text-emerald-400">Contact</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <button onclick="showLoginModal('parent')" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl flex items-center gap-2 shadow-md"><i class="fas fa-lock"></i> Parent Login</button>
+      <button onclick="showLoginModal('teacher')" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl flex items-center gap-2 shadow-md"><i class="fas fa-chalkboard-teacher"></i> Teacher Login</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="home" class="h-screen flex items-center justify-center text-center bg-gradient-to-b from-gray-900 to-gray-950">
+  <div>
+    <h1 class="text-5xl md:text-7xl font-bold heading-font mb-6">Welcome to<br><span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-400">Dubani Public School & College</span></h1>
+    <p class="text-xl md:text-3xl text-gray-300 max-w-3xl mx-auto mb-10">From Playgroup to HSSC – Full student management & portal</p>
+  </div>
+</header>
+
+<!-- ACADEMICS -->
+<section id="academics" class="py-24">
+  <div class="max-w-6xl mx-auto px-6 text-center mb-16">
+    <h2 class="text-5xl heading-font font-bold tracking-tight">Programs for Learners</h2>
+    <p class="text-gray-400 mt-4 text-xl">Playgroup to HSSC – Where curiosity meets care</p>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="bg-gray-900 p-10 rounded-3xl card-hover border border-gray-800">
+      <h3 class="text-3xl font-bold mb-4 text-center">Playgroup & Nursery</h3>
+      <ul class="space-y-2 text-gray-300"><li>Colorful play-based learning</li><li>Songs, stories & ABCs</li><li>Small class sizes</li></ul>
+    </div>
+    <div class="bg-gray-900 p-10 rounded-3xl card-hover border border-gray-800">
+      <h3 class="text-3xl font-bold mb-4 text-center">Elementary Level</h3>
+      <ul class="space-y-2 text-gray-300"><li>Strong basics in English & Math</li><li>Moral & social education</li><li>Sports & activities</li></ul>
+    </div>
+    <div class="bg-gray-900 p-10 rounded-3xl card-hover border border-gray-800">
+      <h3 class="text-3xl font-bold mb-4 text-center">SSC (Science & Humanities)</h3>
+      <ul class="space-y-2 text-gray-300"><li>Core subject mastery</li><li>Exam prep & practice</li><li>Labs & activities</li></ul>
+    </div>
+    <div class="bg-gray-900 p-10 rounded-3xl card-hover border border-gray-800">
+      <h3 class="text-3xl font-bold mb-4 text-center">HSSC (Pre-Med, Pre-Eng, ICS, Humanities)</h3>
+      <ul class="space-y-2 text-gray-300"><li>Advanced subject specialization</li><li>Projects & research</li><li>Career guidance</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<section id="portal" class="py-24 bg-gray-900 text-center">
+  <h2 class="text-5xl heading-font font-bold mb-6">Portal</h2>
+  <div class="flex justify-center gap-6 flex-wrap">
+    <button onclick="showLoginModal('parent')" class="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-semibold">Parent Login</button>
+    <button onclick="showLoginModal('teacher')" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold">Teacher Login</button>
+  </div>
+  <div id="dashboard" class="mt-12 hidden text-left max-w-5xl mx-auto p-6 bg-gray-800 rounded-3xl">
+    <h3 class="text-3xl font-bold mb-4" id="dashboardTitle"></h3>
+    <div id="dashboardContent"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24 bg-gray-950 text-center">
+
+<h2 class="text-5xl heading-font font-bold mb-6">Contact & WhatsApp</h2>
+
+<div class="flex justify-center gap-6 flex-wrap">
+
+<a href="mailto:dps.cgj@gmail.com"
+class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-white font-semibold shadow">
+
+<i class="fas fa-envelope"></i> Email School
+
+</a>
+
+<a href="mailto:careers.dpsc.only@gmail.com"
+class="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-xl text-white font-semibold shadow">
+
+<i class="fas fa-briefcase"></i> Careers
+
+</a>
+
+<a href="https://wa.me/923129701243" target="_blank"
+class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl text-white font-semibold shadow">
+
+<i class="fab fa-whatsapp"></i> Chat on WhatsApp
+
+</a>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="fixed inset-0 bg-black/70 hidden justify-center items-center z-50">
+  <div class="bg-gray-800 p-8 rounded-3xl max-w-md w-full">
+    <h3 class="text-2xl font-bold mb-4 text-center" id="loginTitle"></h3>
+    <input id="email" type="email" placeholder="Email" class="w-full mb-4 p-3 rounded-xl bg-gray-900 border border-gray-700">
+    <input id="password" type="password" placeholder="Password" class="w-full mb-4 p-3 rounded-xl bg-gray-900 border border-gray-700">
+    <button onclick="loginUser()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-semibold">Login</button>
+    <p class="mt-4 text-center text-gray-400 cursor-pointer" onclick="closeLoginModal()">Cancel</p>
+  </div>
+</div>
+
+<script>
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_ID",
+  appId: "YOUR_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+// Modal
+let currentRole = "";
+function showLoginModal(role){
+  currentRole = role;
+  document.getElementById('loginTitle').innerText = role.charAt(0).toUpperCase() + role.slice(1) + ' Login';
+  document.getElementById('loginModal').classList.remove('hidden');
+}
+function closeLoginModal(){ document.getElementById('loginModal').classList.add('hidden'); }
+
+// Login
+async function loginUser(){
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  try{
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    showDashboard(userCredential.user);
+    closeLoginModal();
+  }catch(err){ alert(err.message); }
+}
+
+// Dashboard
+async function showDashboard(user){
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('dashboardTitle').innerText = currentRole.charAt(0).toUpperCase() + currentRole.slice(1) + ' Dashboard';
+  const dash = document.getElementById('dashboardContent');
+
+  if(currentRole==='parent'){
+    const studentSnap = await db.collection('students').doc(user.uid).get();
+    const data = studentSnap.data() || {attendance: 0, results: {}};
+    let resultsHtml = Object.entries(data.results || {}).map(([sub, mark])=>`<li>${sub}: ${mark}</li>`).join('');
+    dash.innerHTML = `<ul class="space-y-2"><li>📅 Attendance: ${data.attendance || 0}%</li>${resultsHtml ? '<li>📊 Results:<ul class="pl-4">'+resultsHtml+'</ul></li>':''}</ul>`;
+  } else {
+    dash.innerHTML = `
+      <h4 class="font-bold mb-2">🧑‍🎓 Manage Students</h4>
+      <p>📅 Track Attendance, 📊 Upload Results, 🖼️ Upload Gallery</p>`;
+  }
+}
+</script>
+
+</body>
+</html>
